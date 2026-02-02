@@ -71,9 +71,35 @@ Default configuration (`config.json`):
 | `memberCacheHours` | `1` | How often to refresh the org member list |
 | `checkIntervalMinutes` | `5` | Reference for intended polling frequency |
 
+## Automated Polling with Cron
+
+Set up a cron job to check for mentions automatically every 5 minutes:
+
+```bash
+# Add to crontab (run: crontab -e)
+*/5 * * * * /path/to/skills/github-mentions/github-mentions.sh check >> /path/to/logs/github-mentions.log 2>&1
+```
+
+Example for OpenClaw workspace:
+```bash
+*/5 * * * * ~/.openclaw/workspace/skills/github-mentions/github-mentions.sh check >> ~/.openclaw/workspace/memory/github-mentions.log 2>&1
+```
+
+Or use the one-liner to add it:
+```bash
+(crontab -l 2>/dev/null; echo "*/5 * * * * ~/.openclaw/workspace/skills/github-mentions/github-mentions.sh check >> ~/.openclaw/workspace/memory/github-mentions.log 2>&1") | crontab -
+```
+
+### Alternative: Heartbeat Integration
+
+If using OpenClaw's heartbeat system, add to `HEARTBEAT.md`:
+```markdown
+- Check GitHub mentions: `github-mentions check`
+```
+
 ## Workflow
 
-1. Run `github-mentions check` periodically (e.g., every 5 minutes via heartbeat)
+1. Cron/heartbeat runs `github-mentions check` every 5 minutes
 2. New mentions appear as `pending`
 3. When you start addressing a mention: `github-mentions start owner/repo#123`
 4. After responding/resolving: `github-mentions done owner/repo#123`
