@@ -1,6 +1,6 @@
 # github-mentions
 
-A [Clawdbot](https://github.com/trifle-labs/clawdbot) skill for monitoring and tracking GitHub mentions across your organizations.
+An [OpenClaw](https://github.com/trifle-labs/openclaw) skill for monitoring and tracking GitHub mentions across your organizations.
 
 ## Features
 
